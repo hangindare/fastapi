@@ -21,6 +21,10 @@ class tokenItem(BaseModel):
     channelName: str
     token: str
 
+class authItem(BaseModel):
+    customerKey: str
+    secretKey: str
+
 @app.get('/')
 def home():
 	return {"message": "U un ready"}
@@ -31,7 +35,7 @@ async def getData():
 
 @app.post('/token/')
 async def createTokenfile(item: tokenItem):
-	filename = 'c:/python/restapi/token'
+	filename = '../token'
  
 	# jsondata = jsonable_encoder(item)
 	# print(jsondata)
@@ -44,12 +48,12 @@ async def createTokenfile(item: tokenItem):
 		msg = "token stored"
 
 	return JSONResponse({
-			'msg' : msg
+		'msg' : msg
 	})
 
 @app.get('/token/')
 async def getToken():
-    filename = 'c:/python/restapi/token'
+    filename = '../restapi/token'
     if not os.path.isfile(filename):
         err = 'no token info'
         return JSONResponse({
@@ -83,4 +87,19 @@ async def getAgoraToken():
         'channelName' : chname,
         'token' : token
 	})
-	
+
+@app.post('/agoraauth/')
+async def getAgoraAuthentication(item: authItem):
+	cKey = item.customerKey
+	sKey = item.secretKey
+
+	credentials = cKey + ":" + sKey
+	base64_credentials = base64.b64encode(credentials.encode("utf8"))
+	credential = base64_credentials.decode("utf8")
+
+	print("Authentication is : ", credential)
+ 
+	return JSONResponse({
+        'auth' : 'basic ' + credential,
+	})
+ 
