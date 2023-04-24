@@ -29,11 +29,11 @@ class authItem(BaseModel):
 def home():
 	return {"message": "U un ready"}
 
-@app.get('/JED/')
+@app.get('/JED')
 async def getData():
 	return "jed"
 
-@app.post('/token/')
+@app.post('/token')
 async def createTokenfile(item: tokenItem):
 	filename = '../token'
  
@@ -51,7 +51,7 @@ async def createTokenfile(item: tokenItem):
 		'msg' : msg
 	})
 
-@app.get('/token/')
+@app.get('/token')
 async def getToken():
     filename = '../restapi/token'
     if not os.path.isfile(filename):
@@ -68,7 +68,7 @@ async def getToken():
             'token' : token
 		})
         
-@app.get('/agoratoken/')
+@app.get('/agoratoken')
 async def getAgoraToken():
 	appId = "4df65f62e6cd41e4938f42c10a8abf5b"
 	appCertificate = "b35d2a23081f4671a7a454c0b61d7dd8"
@@ -88,7 +88,7 @@ async def getAgoraToken():
         'token' : token
 	})
 
-@app.post('/agoraauth/')
+@app.post('/agoraauth')
 async def getAgoraAuthentication(item: authItem):
 	cKey = item.customerKey
 	sKey = item.secretKey
