@@ -1,4 +1,5 @@
 import fastapi
+import logging
 from pydantic import BaseModel
 from fastapi.encoders import jsonable_encoder
 from typing import Optional
@@ -85,6 +86,7 @@ async def getAgoraToken():
 	token = RtcTokenBuilder.buildTokenWithUid(appId, appCertificate, chname, uId, 1, ts)
  
 	print("token is : ", token)
+	logging.debug("token is : ", token)
 	return JSONResponse({
         'channelName' : chname,
         'token' : token
