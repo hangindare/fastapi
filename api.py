@@ -12,6 +12,8 @@ import os.path
 from fastapi import File, UploadFile
         
 app = fastapi.FastAPI()
+reserved_list =  []
+avail_list = []
 
 class Item(BaseModel):
     uid: str
@@ -25,13 +27,13 @@ class authItem(BaseModel):
     customerKey: str
     secretKey: str
 
+class resItem(BaseModel):
+    action: str
+    datetime : str
+
 @app.get('/')
 def home():
 	return {"message": "U un ready"}
-
-@app.get('/JED')
-async def getData():
-	return "jed"
 
 @app.post('/token')
 async def createTokenfile(item: tokenItem):
@@ -102,4 +104,75 @@ async def getAgoraAuthentication(item: authItem):
 	return JSONResponse({
         'auth' : 'basic ' + credential,
 	})
+
+
+@app.post('/reservation/available_date')
+async def setAvailablelist(item: resItem):
+	act = item.action
+	dt = item.datetime
+	msg = ''
+		
+	if (act=='add'):
+		print("list append : ", dt)
+		avail_list.append(dt)
+		print("list : ", avail_list)
+		msg = 'timestamp ' + dt + " added"
+	elif (act=='modify'):
+		print("test 2")
+	elif (act=='delete'):
+		print("test 3")
+	else :
+		print("test 4")
+  
+	return JSONResponse({
+	    'msg' : msg
+	})
+
+@app.post('/reservation/add_reservation')
+async def setReservation(item: resItem):
+	act = item.action
+	dt = item.datetime
  
+	if (act=='add'):
+		print("list append : ", dt)
+		reserved_list.append(dt)
+		print("list : ", reserved_list)
+		msg = 'timestamp ' + dt + " added"
+	elif (act=='modify'):
+		print("test 2")
+	elif (act=='delete'):
+		print("test 3")
+	else :
+		print("test 4")
+ 
+	return JSONResponse({
+        'msg' : msg 
+	})
+
+@app.get('/reservation/available_list')
+async def getAvailablelist():
+	return JSONResponse({
+        'available' : avail_list
+	})
+
+@app.get('/reservation/reserved_list')
+async def getReservedList():
+	return JSONResponse({
+        'reserved' : reserved_list
+	})
+
+@app.get('/debug/getList')
+async def getList():
+	return JSONResponse({
+		'available' : avail_list,
+        'reserved' : reserved_list
+	})
+ 
+@app.get('/debug/clearList')
+async def getClearList():
+	avail_list = []
+	reserved_list = []
+	return JSONResponse({
+		'available' : avail_list,
+        'reserved' : reserved_list
+	})
