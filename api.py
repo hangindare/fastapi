@@ -132,6 +132,7 @@ async def setAvailablelist(item: resItem):
 async def setReservation(item: resItem):
 	act = item.action
 	dt = item.datetime
+	msg = ''
  
 	if (act=='add'):
 		print("list append : ", dt)
@@ -176,3 +177,4 @@ async def getClearList():
 		'available' : avail_list,
         'reserved' : reserved_list
 	})
+ 
