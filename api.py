@@ -86,7 +86,6 @@ async def getAgoraToken():
 	token = RtcTokenBuilder.buildTokenWithUid(appId, appCertificate, chname, uId, 1, ts)
  
 	print("token is : ", token)
-	logging.debug("token is : ", token)
 	return JSONResponse({
         'channelName' : chname,
         'token' : token
