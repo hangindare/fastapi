@@ -171,8 +171,8 @@ async def getList():
  
 @app.get('/debug/clearList')
 async def getClearList():
-	avail_list = []
-	reserved_list = []
+	avail_list.clear()
+	reserved_list.clear()
 	return JSONResponse({
 		'available' : avail_list,
         'reserved' : reserved_list
