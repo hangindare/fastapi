@@ -117,7 +117,7 @@ async def setAvailablelist(item: resItem):
 		print("list append : ", ts)
 		avail_list.append(ts)
 		print("list : ", avail_list)
-		msg = 'timestamp ' + ts + " added"
+		msg = 'timestamp ' + str(ts) + " added"
 	elif (act=='modify'):
 		print("test 2")
 	elif (act=='delete'):
@@ -139,7 +139,7 @@ async def setReservation(item: resItem):
 		print("list append : ", ts)
 		reserved_list.append(ts)
 		print("list : ", reserved_list)
-		msg = 'timestamp ' + ts + " added"
+		msg = 'timestamp ' + str(ts) + " added"
 	elif (act=='modify'):
 		print("test 2")
 	elif (act=='delete'):
