@@ -30,7 +30,7 @@ class authItem(BaseModel):
 
 class resItem(BaseModel):
     action: str
-    datetime : str
+    timestamp : int
 
 @app.get('/')
 def home():
@@ -110,14 +110,14 @@ async def getAgoraAuthentication(item: authItem):
 @app.post('/reservation/available_date')
 async def setAvailablelist(item: resItem):
 	act = item.action
-	dt = item.datetime
+	ts = item.timestamp
 	msg = ''
 		
 	if (act=='add'):
-		print("list append : ", dt)
-		avail_list.append(dt)
+		print("list append : ", ts)
+		avail_list.append(ts)
 		print("list : ", avail_list)
-		msg = 'timestamp ' + dt + " added"
+		msg = 'timestamp ' + ts + " added"
 	elif (act=='modify'):
 		print("test 2")
 	elif (act=='delete'):
@@ -132,14 +132,14 @@ async def setAvailablelist(item: resItem):
 @app.post('/reservation/add_reservation')
 async def setReservation(item: resItem):
 	act = item.action
-	dt = item.datetime
+	ts = item.timestamp
 	msg = ''
  
 	if (act=='add'):
-		print("list append : ", dt)
-		reserved_list.append(dt)
+		print("list append : ", ts)
+		reserved_list.append(ts)
 		print("list : ", reserved_list)
-		msg = 'timestamp ' + dt + " added"
+		msg = 'timestamp ' + ts + " added"
 	elif (act=='modify'):
 		print("test 2")
 	elif (act=='delete'):
