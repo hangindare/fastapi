@@ -112,7 +112,8 @@ async def setAvailablelist(item: resItem):
 	act = item.action
 	ts = item.timestamp
 	msg = ''
-		
+	global avail_list
+ 
 	if (act=='add'):
 		print("list append : ", ts)
 		avail_list.append(ts)
@@ -134,9 +135,10 @@ async def setReservation(item: resItem):
 	act = item.action
 	ts = item.timestamp
 	msg = ''
+	global reserved_list
  
 	if (act=='add'):
-		print("list append : ", ts)
+		print("stored list: ", ts)
 		reserved_list.append(ts)
 		print("list : ", reserved_list)
 		msg = 'timestamp ' + str(ts) + ' added'
@@ -146,7 +148,7 @@ async def setReservation(item: resItem):
 		print("test 3")
 	else :
 		print("test 4")
- 
+
 	return JSONResponse({
         'msg' : msg 
 	})
